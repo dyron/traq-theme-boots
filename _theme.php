@@ -18,8 +18,16 @@
  * along with Traq. If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * A Bootstrap theme for Traq
+ *
+ * @package    Boots
+ * @category   Theme
+ * @author     dyron
+ * @copyright  (c) 2013 dyron
+ */
 return array(
-	'name' => 'Traq 3.0',
-	'version' => '1.0',
-	'author' => 'Jack P.'
+	'name' => 'Boots (Bootstrap for Traq)',
+	'version' => '0.1',
+	'author' => 'dyron'
 );
