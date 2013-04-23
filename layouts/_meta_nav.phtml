@@ -1,18 +1,20 @@
-<div id="meta_nav">
-	<ul id="user_nav">
-		<?php FishHook::run('template:layouts/_meta_nav/user_nav'); ?>
-	<?php if (LOGGEDIN) { ?>
-		<li<?php echo iif(active_nav('/usercp'), ' class="active"')?>><?php echo HTML::link(l('usercp'), '/usercp'); ?></li>
-		<li><?php echo HTML::link(l('logout'), '/logout'); ?></li>
-		<?php if ($current_user->group->is_admin) { ?>
-		<li<?php echo iif(active_nav('/admin(.*)'), ' class="active"')?>><?php echo HTML::link(l('admincp'), '/admin'); ?></li>
-		<?php } ?>
-	<?php } else { ?>
-		<li<?php echo iif(active_nav('/login'), ' class="active"')?>><?php echo HTML::link(l('login'), '/login'); ?></li>
-		<li<?php echo iif(active_nav('/register'), ' class="active"')?>><?php echo HTML::link(l('register'), '/register'); ?></li>
-	<?php } ?>
-	</ul>
-	<ul>
-		<?php if (Request::seg(0)) { ?><li><?php echo HTML::link(settings('title'), '/'); ?></li><?php } ?>
-	</ul>
-</div>
+					<div id="user_nav" class="btn-group pull-right">
+<?php if (LOGGEDIN) { ?>
+						<a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
+							<i class="icon-user"></i> <?php echo l('logged_in_as', $current_user->username) ?>
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
+<?php FishHook::run('template:layouts/_meta_nav/user_nav'); ?>
+							<li<?php echo iif(active_nav('/usercp'), ' class="active"')?>><?php echo HTML::link(l('usercp'), '/usercp'); ?></li>
+<?php if ($current_user->group->is_admin) { ?>
+							<li<?php echo iif(active_nav('/admin(.*)'), ' class="active"')?>><?php echo HTML::link(l('admincp'), '/admin'); ?></li>
+<?php } ?>
+							<li class="divider"></li>
+							<li><?php echo HTML::link(l('logout'), '/logout'); ?></li>
+						</ul>
+<?php } else { ?>
+						<?php echo HTML::link(l('login'), '/login', array('class' => active_nav('/login') ? 'btn btn-primary' : 'btn')); ?>
+						<?php echo HTML::link(l('register'), '/register', array('class' => active_nav('/register') ? 'btn btn-primary' : 'btn')); ?>
+<?php } ?>
+					</div>

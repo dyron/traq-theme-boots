@@ -5,51 +5,66 @@
 		<?php FishHook::run('template:layouts/default/head'); ?>
 	</head>
 	<body>
-		<div id="overlay_blackout"></div>
-		<div id="overlay"></div>
-		<div id="popover" class="popover"></div>
-		<div id="wrapper" class="container">
-			<?php echo View::render('layouts/_meta_nav'); ?>
-			<header id="header">
-				<h1><?php echo (isset($project)) ? HTML::link($project->name, $project->slug) : HTML::link(settings('title'), null); ?></h1>
-				<?php echo View::render('layouts/_project_switcher'); ?>
-				<?php if (isset($project)) { ?>
-				<form onsubmit="do_search();return false;" id="search">
-					<input type="hidden" name="project_slug" value="<?php echo $project->slug; ?>" />
-					<input type="search" name="search" placeholder="<?php echo l('search'); ?>" />
-				</form>
-				<?php } ?>
-			</header>
-			<nav id="nav">
-				<ul id="main_nav">
-				<?php if (isset($project)) { ?>
-					<li<?php echo iif(active_nav('/:slug'), ' class="active"')?>><?php echo HTML::link(l('project_info'), $project->href()); ?></li>
-					<li<?php echo iif(active_nav('/:slug/timeline'), ' class="active"')?>><?php echo HTML::link(l('timeline'), $project->href("timeline")); ?></li>
-					<li<?php echo iif(active_nav('/:slug/(roadmap|milestone)(.*)'), ' class="active"')?>><?php echo HTML::link(l('roadmap'), $project->href("roadmap")); ?></li>
-					<li<?php echo iif(active_nav('/:slug/tickets(?:/[0-9]+)?'), ' class="active"')?>><?php echo HTML::link(l('tickets'), $project->href("tickets")); ?></li>
-					<?php if($current_user->permission($project->id, 'create_tickets')) { ?>
-					<li<?php echo iif(active_nav('/:slug/tickets/new(.*)'), ' class="active"')?>><?php echo HTML::link(l('new_ticket'), $project->href('tickets/new')); ?></li>
-					<?php } ?>
-					<li<?php echo iif(active_nav('/:slug/changelog'), ' class="active"')?>><?php echo HTML::link(l('changelog'), $project->href('changelog')); ?></li>
-					<?php if ($project->enable_wiki) { ?>
-					<li<?php echo iif(active_nav('/:slug/wiki(.*)'), ' class="active"')?>><?php echo HTML::link(l('wiki'), $project->href("wiki")); ?></li>
-					<?php } ?>
-					<?php if($current_user->permission($project->id, 'project_settings')) { ?>
-					<li<?php echo iif(active_nav('/:slug/settings(.*)'), ' class="active"')?>><?php echo HTML::link(l('settings'), $project->href("settings")); ?></li>
-					<?php } ?>
-				<?php } else { ?>
-					<li<?php echo iif(active_nav('/'), ' class="active"')?>><?php echo HTML::link(l('projects'), null); ?></li>
-				<?php } ?>
-				<?php FishHook::run('template:layouts/default/main_nav', array(isset($project) ? $project : false)); ?>
-				</ul>
-			</nav>
-			<div id="page">
-<?php echo $output; ?>
+		<header id="header" class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container-fluid">
+<?php echo (isset($project))
+	? HTML::link($project->name, $project->slug, array('class' => 'brand')) 
+	: HTML::link(settings('title'), null, array('class' => 'brand')); ?>
+
+					<nav id="nav" class="nav-collapse collapse">
+						<ul id="main_nav" class="nav">
+<?php if (isset($project)) { ?>
+						<li<?php echo iif(active_nav('/:slug'), ' class="active"')?>><?php echo HTML::link(l('project_info'), $project->href()); ?></li>
+						<li<?php echo iif(active_nav('/:slug/timeline'), ' class="active"')?>><?php echo HTML::link(l('timeline'), $project->href("timeline")); ?></li>
+						<li<?php echo iif(active_nav('/:slug/(roadmap|milestone)(.*)'), ' class="active"')?>><?php echo HTML::link(l('roadmap'), $project->href("roadmap")); ?></li>
+						<li<?php echo iif(active_nav('/:slug/tickets(?:/[0-9]+)?'), ' class="active"')?>><?php echo HTML::link(l('tickets'), $project->href("tickets")); ?></li>
+<?php if($current_user->permission($project->id, 'create_tickets')) { ?>
+						<li<?php echo iif(active_nav('/:slug/tickets/new(.*)'), ' class="active"')?>><?php echo HTML::link(l('new_ticket'), $project->href('tickets/new')); ?></li>
+<?php } ?>
+						<li<?php echo iif(active_nav('/:slug/changelog'), ' class="active"')?>><?php echo HTML::link(l('changelog'), $project->href('changelog')); ?></li>
+<?php if ($project->enable_wiki) { ?>
+						<li<?php echo iif(active_nav('/:slug/wiki(.*)'), ' class="active"')?>><?php echo HTML::link(l('wiki'), $project->href("wiki")); ?></li>
+<?php } ?>
+<?php if($current_user->permission($project->id, 'project_settings')) { ?>
+						<li<?php echo iif(active_nav('/:slug/settings(.*)'), ' class="active"')?>><?php echo HTML::link(l('settings'), $project->href("settings")); ?></li>
+<?php } ?>
+<?php } else { ?>
+						<li<?php echo iif(active_nav('/'), ' class="active"')?>><?php echo HTML::link(l('projects'), null); ?></li>
+<?php } ?>
+<?php FishHook::run('template:layouts/default/main_nav', array(isset($project) ? $project : false)); ?>
+						</ul>
+					</nav>
+	
+<?php if (isset($project)) { ?>
+<?php echo View::render('layouts/_project_switcher'); ?>
+<?php } ?>
+	
+					<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</a>
+
+<?php echo View::render('layouts/_meta_nav'); ?>
+
+					<form onsubmit="do_search();return false;" id="search" class="form-search navbar-search pull-right">
+						<div class="input-append">
+							<input  type="search" name="search" class="span2 search-query" placeholder="<?php echo l('search'); ?>">
+							<input type="hidden" name="project_slug" value="<?php echo $project->slug; ?>" >
+							<button type="submit" class="btn btn-inverse">Search</button>
+						</div>
+					</form>
+				</div>
 			</div>
-			<footer id="footer">
-				<?php echo l('copyright', TRAQ_VER, date("Y")); ?>
-			</footer>
-			<!-- <?php echo round((microtime(true) - START_TIME), 2); ?>s, <?php echo round((memory_get_peak_usage() - START_MEM) / pow(1024, 2), 3); ?>mb -->
+		</header>
+
+		<div id="page" class="container-fluid">
+<?php echo $output; ?>
 		</div>
+
+		<footer id="footer" class="container-fluid"><?php echo l('copyright', TRAQ_VER, date("Y")); ?></footer>
+
+		<!-- <?php echo round((microtime(true) - START_TIME), 2); ?>s, <?php echo round((memory_get_peak_usage() - START_MEM) / pow(1024, 2), 3); ?>mb -->
 	</body>
 </html>
