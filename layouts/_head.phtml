@@ -1,13 +1,12 @@
-<title><?php echo implode(' - ', array_reverse($traq->title)); ?></title>
+		<title><?php echo implode(' - ', array_reverse($traq->title)); ?></title>
+
 		<meta charset="UTF-8" />
 		<link rel="stylesheet" href="<?php echo Request::base() ?>vendor/traq/views/boots/css/bootstrap.min.css" media="screen" />
 		<link rel="stylesheet" href="<?php echo Request::base() ?>vendor/traq/views/boots/css/bootstrap-responsive.min.css" media="screen" />
         <link rel="stylesheet" href="<?php echo Request::base() ?>vendor/traq/views/boots/css/boots.css" media="screen" />
 
-
 		<script src="http://code.jquery.com/jquery.js"></script>
-		<script src="vendor/traq/views/boots/js/bootstrap.min.js"></script>
-		<?php echo HTML::js_inc(Request::base('_js')); ?>
+		<script src="<?php echo Request::base() ?>vendor/traq/views/boots/js/bootstrap.min.js"></script>
 		<?php FishHook::run('template:layouts/global/head'); ?>
 <?php foreach ($app->feeds as $feed) { ?><link type="application/atom+xml" rel ="alternate" href="<?php echo $feed[0]; ?>">
 <?php } ?>
