@@ -1,20 +1,21 @@
-					<div id="user_nav" class="btn-group pull-right">
 <?php if (LOGGEDIN) { ?>
-						<a href="#" class="btn dropdown-toggle" data-toggle="dropdown">
-							<i class="icon-user"></i> <?php echo l('logged_in_as', $current_user->username) ?>
-							<b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu">
-<?php FishHook::run('template:layouts/_meta_nav/user_nav'); ?>
-							<li<?php echo iif(active_nav('/usercp'), ' class="active"')?>><?php echo HTML::link(l('usercp'), '/usercp'); ?></li>
+					<div id="user_nav" class="btn-group pull-right">
+						<?php echo HTML::link('<i class="icon-user"></i> '.l('usercp'), '/usercp', array('class' => 'btn')); ?>
 <?php if ($current_user->group->is_admin) { ?>
-							<li<?php echo iif(active_nav('/admin(.*)'), ' class="active"')?>><?php echo HTML::link(l('admincp'), '/admin'); ?></li>
+						<?php echo HTML::link('<i class="icon-cog"></i> '.l('admincp'), '/admin', array('class' => 'btn')); ?>
 <?php } ?>
-							<li class="divider"></li>
-							<li><?php echo HTML::link(l('logout'), '/logout'); ?></li>
-						</ul>
-<?php } else { ?>
-						<?php echo HTML::link(l('login'), '/login', array('class' => active_nav('/login') ? 'btn btn-primary' : 'btn')); ?>
-						<?php echo HTML::link(l('register'), '/register', array('class' => active_nav('/register') ? 'btn btn-primary' : 'btn')); ?>
-<?php } ?>
+						<?php echo HTML::link('<i class="icon-off icon-white"></i>', '/logout', array('class' => 'btn btn-inverse')); ?>
 					</div>
+<?php } else { ?>
+
+<?php if ( ! active_nav('/login')): ?>
+					<form action="<?php echo Request::base('login'); ?>" method="post" class="navbar-form form-inline pull-right">
+						<?php echo Form::text('username', array('placeholder' => l('username'), 'class' => 'input-medium')); ?>
+						<?php echo Form::password('password', array('placeholder' => l('password'), 'class' => 'input-medium')); ?>
+						<div class="btn-group">
+							<?php echo Form::submit(l('login'), 'login', array('class' => 'btn')); ?>
+							<?php echo HTML::link(l('register'), '/register', array('class' => 'btn btn-inverse')); ?>
+						</div>
+					</form>
+<?php endif ?>
+<?php } ?>

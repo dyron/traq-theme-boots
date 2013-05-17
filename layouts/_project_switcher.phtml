@@ -1,14 +1,15 @@
-					<ul id="project_switcher" class="nav">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo l('projects') ?><b class="caret"></b></a>
-							<ul class="dropdown-menu">
+					<div id="project_switcher" class="dropdown pull-left">
+						<?php echo HTML::link($project->name, $project->slug, array('class' => 'brand')) ?>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu">
 <?php if (Request::seg(0)) { ?>
-								<li><?php echo HTML::link(settings('title'), '/'); ?></li>
-								<li class="divider"></li>
+							<li><?php echo HTML::link(settings('title'), '/'); ?></li>
+							<li class="divider"></li>
 <?php } ?>
 <?php foreach ($projects as $p) { ?>
-								<li><?php echo HTML::link($p->name, $p->href()); ?>
+							<li><?php echo HTML::link($p->name, $p->href()); ?>
 <?php } ?>
-							</ul>
-						</li>
-					</ul>
+						</ul>
+					</div>

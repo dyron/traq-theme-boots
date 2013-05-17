@@ -1,19 +1,44 @@
 body {
 	position: relative;
-	padding-top: 40px;
 }
+
+
+.dropdown .brand {
+    float: left !important;
+    padding-right: 5px;
+}
+.dropdown .brand + .dropdown-toggle {
+    float: right !important;
+    padding: 10px 5px;
+}
+
+.btn .caret { margin-left: 2px; }
+
 
 
 #ticket, #ticket_history .change {
 	padding: .6em 1.2em;
 }
 
-
-
 #ticket {
 	background: #ffd;
 	border: 1px solid #dd9;
 	border-radius: .4em;
+}
+
+
+#ticket .properties dt, #ticket .properties dd
+{
+	border-bottom: 1px solid #EEEEDD;
+}
+#ticket h2, #ticket h3
+{
+	border-bottom: 1px solid #EEEEAA;
+}
+
+#ticket h3,
+#ticket .properties dt {
+	color: #666633;
 }
 
 #ticket_history .change {
@@ -27,44 +52,116 @@ body {
 #ticket_history .change h4 {
 	font-size: 14px;
 	color: #999999;
-	border-bottom: 1px solid #999999; 
+	border-bottom: 1px dotted #999999; 
 
 }
 
-.properties .property, .properties .value { /*border: 1px solid fuchsia;*/ float: left; margin: 0; }
-.properties .property { width: 10%; }
-.properties .value { width: 23.333333333%; }
+#ticket .properties dt, #ticket .properties dd { /*border: 1px solid fuchsia;*/ float: left; margin: 0; }
+#ticket .properties dt { width: 10%; }
+#ticket .properties dd { width: 23.333333333%; }
 
 
 @media (max-width: 767px) {
 }
 
 @media (min-width: 1200px) {
-	.properties .property { width: 9%; }
-	.properties .value { width: 16%; }
-	.properties .property:nth-child(8n+1) { clear: both; }
+	#ticket .properties dt { width: 9%; }
+	#ticket .properties dd { width: 16%; }
+	#ticket .properties dt:nth-child(8n+1) { clear: both; }
 }
 
 @media (min-width: 768px) and (max-width: 1199px) {
-	.properties .property { width: 13.333333333%; }
-	.properties .value { width: 20%; }
-	.properties .property:nth-child(6n+1) { clear: both; }
+	#ticket .properties dt { width: 13.333333333%; }
+	#ticket .properties dd { width: 20%; }
+	#ticket .properties dt:nth-child(6n+1) { clear: both; }
 }
 
 @media (min-width: 481px) and (max-width: 767px) {
-	.properties .property { width: 20%; }
-	.properties .value { width: 30%; }
-	.properties .property:nth-child(4n+1) { clear: both; }
+	#ticket .properties dt { width: 20%; }
+	#ticket .properties dd { width: 30%; }
+	#ticket .properties dt:nth-child(4n+1) { clear: both; }
 }
 
 @media (max-width: 480px) {
-	.properties .property { width: 35%; }
-	.properties .value { width: 65%; }
-	.properties .property:nth-child(2n+1) { clear: both; }
+    .navbar .brand { display: none; }
+	#ticket .properties dt { width: 35%; }
+	#ticket .properties dd { width: 65%; }
+	#ticket .properties dt:nth-child(2n+1) { clear: both; }
 }
 
 @media (max-width: 979px) {
 }
 
+@media (min-width: 481px) and (max-width: 979px) {
+    /*.navbar .brand { text-overflow: ellipsis; overflow: hidden; white-space: nowrap; width: 100px; }*/
+}
+
 @media (min-width: 980px) {
+    body { padding-top: 40px; }
+}
+
+
+
+.tickets tr.color1-odd {
+    background: none repeat scroll 0 0 #FFDDCC;
+    border-color: #EE8888;
+    color: #AA2222;
+}
+.tickets tr.color1-even {
+    background: none repeat scroll 0 0 #FFEEDD;
+    border-color: #EE9999;
+    color: #AA2222;
+}
+.tickets tr.color2-odd {
+    background: none repeat scroll 0 0 #FFFFBB;
+    border-color: #EEEEAA;
+    color: #888800;
+}
+.tickets tr.color2-even {
+    background: none repeat scroll 0 0 #FFFFDD;
+    border-color: #DDDD88;
+    color: #888800;
+}
+.tickets tr.color3-odd {
+    background: none repeat scroll 0 0 #FBFBFB;
+    border-color: #DDDDDD;
+    color: #444444;
+}
+.tickets tr.color3-even {
+    background: none repeat scroll 0 0 #F6F6F6;
+    border-color: #CCCCCC;
+    color: #333333;
+}
+.tickets tr.color4-odd {
+    background: none repeat scroll 0 0 #E7FFFF;
+    border-color: #CCEEEE;
+    color: #009999;
+}
+.tickets tr.color4-even {
+    background: none repeat scroll 0 0 #DDFFFF;
+    border-color: #BBEEEE;
+    color: #009999;
+}
+.tickets tr.color5-odd {
+    background: none repeat scroll 0 0 #E7EEFF;
+    border-color: #CCDDEE;
+    color: #446699;
+}
+.tickets tr.color5-even {
+    background: none repeat scroll 0 0 #DDE7FF;
+    border-color: #CCDDEE;
+    color: #446699;
+}
+.tickets tr.color6-odd {
+    background: none repeat scroll 0 0 #F0F0F0;
+    border-color: #DDDDDD;
+    color: #888888;
+}
+.tickets tr.color6-even {
+    background: none repeat scroll 0 0 #F7F7F7;
+    border-color: #DDDDDD;
+    color: #888888;
+}
+.tickets tr.color6-odd a, .color6-even a {
+    color: #BB6666;
 }
